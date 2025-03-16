@@ -1,6 +1,7 @@
 # Locação de veiculos - API
-## É uma api para praticar os conhecimentos adquiridos no bootcamp decola tech da DIO
+### É uma api para praticar os conhecimentos adquiridos no bootcamp decola tech da DIO
 
+## Diagrama de classes
 ``` mermaid
 classDiagram
     class Usuario {
