@@ -37,3 +37,4 @@ classDiagram
     Veiculo "1" --> "0..1" Locacao : está em
 ```
 Ainda ficou faltando algumas coisas, ou ficaram incompletas, principalmente na parte de exceções, irei continuar trabalhando nessa api, afinal, quero implementar segurança, controle de acesse, autorização, etc.
+Outro ponto a ressaltar, é que na parte de DTOs eu implementei de forma grotesca e com ajuda do chatgpt e claude-ai, então provavelmente não ficou coerente ou correto.
