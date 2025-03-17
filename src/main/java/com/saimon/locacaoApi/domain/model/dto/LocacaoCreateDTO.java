@@ -1,6 +1,6 @@
 package com.saimon.locacaoApi.domain.model.dto;
 
-public class LocacaoDTO {
+public class LocacaoCreateDTO {
     private Long userId;
     private Long veiculoId;
 

@@ -1,9 +1,10 @@
 package com.saimon.locacaoApi.service.implementation;
 
+import com.saimon.locacaoApi.controller.exceptions.LocacaoNaoEncontradaException;
 import com.saimon.locacaoApi.domain.model.Locacao;
 import com.saimon.locacaoApi.domain.model.User;
 import com.saimon.locacaoApi.domain.model.Veiculo;
-import com.saimon.locacaoApi.domain.model.dto.LocacaoDTO;
+import com.saimon.locacaoApi.domain.model.dto.LocacaoCreateDTO;
 import com.saimon.locacaoApi.domain.repository.LocacaoRepository;
 import com.saimon.locacaoApi.domain.repository.UserRepository;
 import com.saimon.locacaoApi.domain.repository.VeiculoRepository;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Transactional
 @Service
@@ -33,18 +35,23 @@ public class LocacaoServiceImpl implements LocacaoService {
 
     @Override
     public Locacao findById(Long id) {
-        return null;
+        return locacaoRepository.findById(id).orElseThrow(() -> new LocacaoNaoEncontradaException(id));
     }
 
     @Override
-    public Locacao create(LocacaoDTO locacaoDTO) {
-        User user = userRepository.findById(locacaoDTO.getUserId()).orElseThrow(() -> new EntityNotFoundException("Usuario não encontrado"));
+    public List<Locacao> findAll() {
+        return locacaoRepository.findAll();
+    }
+
+    @Override
+    public Locacao create(LocacaoCreateDTO locacaoCreateDTO) {
+        User user = userRepository.findById(locacaoCreateDTO.getUserId()).orElseThrow(() -> new EntityNotFoundException("Usuario não encontrado"));
 
         if (locacaoRepository.findByUserAndAtivoTrue(user).isPresent()){
             throw new RuntimeException("Usuario %s já possui locacao ativa: " + user.getNome());
         }
 
-        Veiculo veiculo = veiculoRepository.findById(locacaoDTO.getVeiculoId()).orElseThrow(() -> new EntityNotFoundException("Veiculo não encontrado"));
+        Veiculo veiculo = veiculoRepository.findById(locacaoCreateDTO.getVeiculoId()).orElseThrow(() -> new EntityNotFoundException("Veiculo não encontrado"));
 
         if (!veiculo.isDisponivel()){
             throw new RuntimeException("Veiculo já está em uso (alugado!)");

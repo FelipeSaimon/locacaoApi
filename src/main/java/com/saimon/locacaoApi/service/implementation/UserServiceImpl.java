@@ -5,6 +5,7 @@ import com.saimon.locacaoApi.domain.repository.UserRepository;
 import com.saimon.locacaoApi.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -20,6 +21,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(Long id) {
         return userRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    }
+
+    @Override
+    public List<User> findAllUsers() {
+       return userRepository.findAll();
     }
 
     @Override
