@@ -5,30 +5,25 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
 
-@Entity(name = "tb_locacao")
+@Entity
+@Table(name = "tb_locacao")
 public class Locacao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "veiculo_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "veiculo_id", insertable = false, updatable = false)
     private Veiculo veiculo;
 
     private LocalDate dataLocacao;
     private LocalDate dataDevolucao;
     private boolean ativo;
-
-    public Locacao(User user, Veiculo veiculo, LocalDate dataLocacao){
-        this.user = user;
-        this.veiculo = veiculo;
-        this.dataLocacao = dataLocacao;
-    }
 
     public Long getId() {
         return id;

@@ -18,10 +18,6 @@ public class User {
 
     private String telefone;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "locacao_id", referencedColumnName = "id") // Define chave estrangeira corretamente
-//    private Locacao locacao;
-
     public User() {
     }
 
@@ -31,13 +27,6 @@ public class User {
         this.telefone = telefone;
     }
 
-//    public Locacao getLocacao() {
-//        return locacao;
-//    }
-//
-//    public void setLocacao(Locacao locacao) {
-//        this.locacao = locacao;
-//    }
 
     public Long getId() {
         return id;
