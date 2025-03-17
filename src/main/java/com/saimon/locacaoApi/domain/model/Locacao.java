@@ -1,10 +1,8 @@
 package com.saimon.locacaoApi.domain.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity(name = "tb_locacao")
@@ -14,11 +12,23 @@ public class Locacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "veiculo_id", referencedColumnName = "id")
     private Veiculo veiculo;
-    private Date dataLocacao;
-    private Date dataDevolucao;
+
+    private LocalDate dataLocacao;
+    private LocalDate dataDevolucao;
     private boolean ativo;
+
+    public Locacao(User user, Veiculo veiculo, LocalDate dataLocacao){
+        this.user = user;
+        this.veiculo = veiculo;
+        this.dataLocacao = dataLocacao;
+    }
 
     public Long getId() {
         return id;
@@ -44,19 +54,19 @@ public class Locacao {
         this.veiculo = veiculo;
     }
 
-    public Date getDataLocacao() {
+    public LocalDate getDataLocacao() {
         return dataLocacao;
     }
 
-    public void setDataLocacao(Date dataLocacao) {
+    public void setDataLocacao(LocalDate dataLocacao) {
         this.dataLocacao = dataLocacao;
     }
 
-    public Date getDataDevolucao() {
+    public LocalDate getDataDevolucao() {
         return dataDevolucao;
     }
 
-    public void setDataDevolucao(Date dataDevolucao) {
+    public void setDataDevolucao(LocalDate dataDevolucao) {
         this.dataDevolucao = dataDevolucao;
     }
 

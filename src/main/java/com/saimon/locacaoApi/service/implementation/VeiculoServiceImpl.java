@@ -23,11 +23,9 @@ public class VeiculoServiceImpl implements VeiculoService {
 
     @Override
     public Veiculo create(Veiculo veiculoCreated) {
-
         if (veiculoRepository.existsByPlaca(veiculoCreated.getPlaca())){
             throw new IllegalArgumentException("Um veiculo com essa placa já foi cadastrado");
         }
-
         return veiculoRepository.save(veiculoCreated);
     }
 }

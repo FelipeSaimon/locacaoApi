@@ -12,7 +12,6 @@ public class UserServiceImpl implements UserService {
 
     // Injetando dependencias do repository
     private final UserRepository userRepository;
-    private User userCreated;
 
     public UserServiceImpl(UserRepository userRepository){
         this.userRepository = userRepository;
@@ -20,7 +19,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(Long id) {
-
         return userRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
@@ -28,7 +26,7 @@ public class UserServiceImpl implements UserService {
     public User create(User userCreated) {
 
         // Verificando se o cpf já está cadastrado, isso pode evitar uso de um mesmo cpf por pessoas diferentes.
-        if(userRepository.existsByCPF(userCreated.getCpf())){
+        if(userRepository.existsByCpf(userCreated.getCpf())){
             throw new IllegalArgumentException("Este cpf já está cadastrado.");
         }
 

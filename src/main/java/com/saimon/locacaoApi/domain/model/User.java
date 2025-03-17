@@ -2,32 +2,42 @@ package com.saimon.locacaoApi.domain.model;
 
 import jakarta.persistence.*;
 
-@Entity(name = "tb_user")
+@Entity
+@Table(name = "tb_user") // Define corretamente o nome da tabela no banco
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String nome;
+
+    @Column(unique = true, nullable = false, length = 11) // CPF único e obrigatório
     private String cpf;
+
     private String telefone;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Locacao locacao;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "locacao_id", referencedColumnName = "id") // Define chave estrangeira corretamente
+//    private Locacao locacao;
 
-
-    // Para caso precise está logado em um sistema para locar ou para verificar se pode locar veiculo
-//    private boolean cadastrado;
-
-
-    public Locacao getLocacao() {
-        return locacao;
+    public User() {
     }
 
-    public void setLocacao(Locacao locacao) {
-        this.locacao = locacao;
+    public User(String nome, String cpf, String telefone) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.telefone = telefone;
     }
+
+//    public Locacao getLocacao() {
+//        return locacao;
+//    }
+//
+//    public void setLocacao(Locacao locacao) {
+//        this.locacao = locacao;
+//    }
 
     public Long getId() {
         return id;
